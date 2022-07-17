@@ -1,0 +1,43 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,198,89)
+  Arrangement = Arrange.Column
+  { HBox1 HBox
+    MoveScaled(0,0,196,89)
+    Expand = True
+    AutoResize = True
+    { ScrollView1 ScrollView
+      MoveScaled(1,2,94,87)
+      Expand = True
+      Arrangement = Arrange.Row
+      AutoResize = True
+      { HBox2 HBox
+        MoveScaled(1,0,91,6)
+        { CheckBox1 CheckBox
+          MoveScaled(1,1,4,5)
+        }
+        { Label1 Label
+          MoveScaled(5,2,10,3)
+          Text = ("idsensor")
+        }
+        { Label2 Label
+          MoveScaled(17,2,10,3)
+          Text = ("Descripcion")
+        }
+      }
+    }
+    { VBox2 VBox
+      MoveScaled(96,5,10,30)
+      { ButtonSQL Button
+        MoveScaled(1,3,6,5)
+        ToolTip = ("traducir")
+        Text = ("->SQL")
+      }
+    }
+    { TextArea1 TextArea
+      MoveScaled(107,2,88,59)
+      Wrap = True
+    }
+  }
+}

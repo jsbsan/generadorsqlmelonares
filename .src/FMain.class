@@ -1,0 +1,84 @@
+' Gambas class file
+
+Public listacheckbox As New CheckBox[]
+
+Public Sub Form_Open()
+
+  Dim contenido As String
+  Dim lineas As String[]
+  Dim token As String[]
+
+  Dim tmplabelid As TextBox
+  Dim tmplabels As TextBox
+  Dim tmpCheck As CheckBox
+  Dim ch As Hbox
+  Dim l As String
+  Dim sublista As String[]
+
+  contenido = File.Load("lista.txt")
+  lineas = Split(contenido, gb.CrLf)
+
+  ScrollView1.Arrangement = Arrange.Row
+
+  For Each l In lineas
+    token = Split(l, "\t")
+
+    ch = New HBox(ScrollView1) As "control"
+    ch.W = 21 + 30 + 250
+    ch.H = 21
+    ' ch.X = 0
+    ' ch.y = ScrollView1.Children.Count * 10
+
+    If token.count = 2 Then
+      tmpCheck = New CheckBox(ch)
+      tmpCheck.w = 21
+      tmpCheck.h = 21
+      sublista = New String[]
+      sublista.add(token[0])
+      sublista.add(token[1])
+      tmpCheck.Tag = sublista
+
+      listacheckbox.add(tmpCheck)
+      tmplabelid = New TextBox(ch)
+      tmplabelid.w = 30
+      tmplabelid.x = 21
+      tmplabelid.Text = token[0]
+      tmplabels = New TextBox(ch)
+      tmplabels.w = 250
+      tmplabels.x = 21
+      tmplabels.Text = token[1]
+
+    Endif
+
+  Next
+
+End
+
+Public Sub HBox1_MouseDown()
+
+End
+
+Public Sub Form_Show()
+
+  HBox1.h = Me.h
+  HBox1.Refresh()
+
+End
+
+Public Sub ButtonSQL_Click()
+
+  Dim c As CheckBox
+  Dim sqlsentencia As String
+  Dim listaActiva As New CheckBox[]
+  'REVISAR TODOS LOS CHECKBOX QUE TENGAN VALUE=TRUE Y LOS AÑADO A UNA LISTA
+  For Each C In listacheckbox
+    If C.VALUE = True Then ListaActiva.add(c)
+
+  Next
+  'FUNCION PARA CREAR INSTRUCCION, PASO LISTA DE CHECKBOX Y DEVUELVO TEXTO DEL CODIGO SQL
+
+  sqlsentencia = analisis.generador(ListaActiva)
+
+  TextArea1.Text = sqlsentencia
+
+End

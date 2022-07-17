@@ -1,0 +1,41 @@
+' Gambas module file
+
+Public Sub generador(lista As CheckBox[]) As String
+
+  Dim idsensor As String
+  Dim nombresensor As String
+  Dim contador As Integer = 0
+  Dim c As CheckBox
+  Dim subcodigo As String
+  Dim codigo1, codigo2, codigo3, codigo4, codigo5, codigo6 As String
+  Dim codigotmp As String
+
+  codigo1 = "Select p0.fechalectura" & gb.CrLf
+  codigo3 = "FROM [Melonares].[dbo].[HistoricoSensor] as p0" & gb.CrLf
+  codigo5 = "where " & gb.CrLf
+
+  contador = 0
+  For Each c In lista
+
+    idsensor = c.tag[0]
+    nombresensor = c.Tag[1]
+    subcodigo = "p" & Str$(contador)
+    codigotmp = "    ," & subcodigo & ".[idsensor] as '" & nombresensor & "'," & subcodigo & ".[lectura] as lec" & Str$(idsensor) & "," & subcodigo & ".[medida] as med" & Str$(idsensor) & gb.CrLf
+
+    codigo2 &= codigotmp
+
+    If contador <> 0 Then
+      codigotmp = "    left outer join [Melonares].[dbo].[HistoricoSensor] as " & subcodigo & gb.CrLf
+      codigotmp &= "        On p0.fechalectura=" & subcodigo & ".fechalectura" & gb.CrLf
+
+      codigo4 &= codigotmp
+    Endif
+
+    codigotmp = subcodigo & ".idsensor=" & Str$(idsensor) & " AND "
+    codigo6 &= codigotmp
+    contador += 1
+  Next
+
+  Return codigo1 & codigo2 & codigo3 & codigo4 & codigo5 & Mid$(codigo6, 1, Len(codigo6) - Len(" AND "))
+
+End
