@@ -2,6 +2,7 @@
 
 { Form Form
   MoveScaled(0,0,198,89)
+  Icon = Picture["melonares.png"]
   Arrangement = Arrange.Column
   { HBox1 HBox
     MoveScaled(0,0,196,89)
